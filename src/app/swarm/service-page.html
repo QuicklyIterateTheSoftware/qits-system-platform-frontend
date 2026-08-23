@@ -69,7 +69,8 @@
               </td>
               <td><app-status-badge [status]="task.state" /></td>
               <td><app-status-badge [status]="task.desiredState" /></td>
-              <td class="value error">{{ task.error || none }}</td>
+              <!-- Red only when there IS an error: a red em dash reads as a fault that is not there. -->
+              <td class="value" [class.error]="task.error">{{ task.error || none }}</td>
               <td [attr.title]="instant(task.updatedAt)" class="subtle">
                 {{ ago(task.updatedAt) }}
               </td>

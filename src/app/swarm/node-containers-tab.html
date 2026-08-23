@@ -55,26 +55,28 @@
                   {{ ago(container.createdAt) }}
                 </td>
                 <td class="mono subtle value">{{ container.ports || none }}</td>
-                <td class="row-actions">
-                  <!-- Two buttons and not a picker: which shell a container has is a property of
+                <td>
+                  <div class="row-actions">
+                    <!-- Two buttons and not a picker: which shell a container has is a property of
                        its image, and pressing the wrong one is faster than any menu. -->
-                  <qits-button
-                    variant="ghost"
-                    size="sm"
-                    [busy]="busy(container, 'bash')"
-                    (pressed)="exec(container, 'bash')"
-                    >bash</qits-button
-                  >
-                  <qits-button
-                    variant="ghost"
-                    size="sm"
-                    [busy]="busy(container, 'sh')"
-                    (pressed)="exec(container, 'sh')"
-                    >sh</qits-button
-                  >
-                  <qits-button variant="ghost" size="sm" (pressed)="toggleLogs(container)"
-                    >logs</qits-button
-                  >
+                    <qits-button
+                      variant="ghost"
+                      size="sm"
+                      [busy]="busy(container, 'bash')"
+                      (pressed)="exec(container, 'bash')"
+                      >bash</qits-button
+                    >
+                    <qits-button
+                      variant="ghost"
+                      size="sm"
+                      [busy]="busy(container, 'sh')"
+                      (pressed)="exec(container, 'sh')"
+                      >sh</qits-button
+                    >
+                    <qits-button variant="ghost" size="sm" (pressed)="toggleLogs(container)"
+                      >logs</qits-button
+                    >
+                  </div>
                 </td>
               </tr>
             }
