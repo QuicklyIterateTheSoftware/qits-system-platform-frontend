@@ -58,3 +58,25 @@ function serverMessage(body: unknown): string | null {
   }
   return null;
 }
+
+/**
+ * Read something into a panel's state: loading, then ready or the reason it is not.
+ *
+ * Every page here has between one and four of these, and hand-rolling the try/catch each time is
+ * how one of them ends up never leaving `loading` on a 503. The first line is the part worth
+ * stating: a state that is already `ready` is NOT reset to loading, so a re-read leaves the last
+ * good answer on screen instead of blanking the table under the reader's cursor.
+ */
+export async function loadInto<T>(
+  state: { (): Loadable<T>; set(value: Loadable<T>): void },
+  read: () => Promise<T>,
+): Promise<void> {
+  if (state().kind !== 'ready') {
+    state.set(LOADING);
+  }
+  try {
+    state.set(ready(await read()));
+  } catch (error) {
+    state.set(failed(error));
+  }
+}
