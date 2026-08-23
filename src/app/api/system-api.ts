@@ -131,7 +131,8 @@ export class SystemApi {
    * **Find-or-create, and the service decides which.** One glances container serves every operator
    * on the platform, so a second visitor is handed the first one's session — 200 rather than 201 —
    * and the page attaches to it. That is also why leaving the overview only detaches: deleting the
-   * session on the way out would blank the screen of whoever else is watching.
+   * session on the way out would blank the screen of whoever else is watching. The service ends it
+   * a few seconds after the last viewer detaches, so nothing is left running.
    */
   createGlancesTerminal(): Promise<TerminalDto> {
     return this.createTerminal({ kind: 'GLANCES' });

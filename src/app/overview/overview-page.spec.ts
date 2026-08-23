@@ -32,9 +32,11 @@ const OVERVIEW = {
 /**
  * The front door, and the one rule on it that costs somebody else's screen if it breaks.
  *
- * **Leaving does not delete the session.** `POST /terminals {kind:"GLANCES"}` is find-or-create, so
- * the session this page attaches to may be one another operator is already watching. The spec
- * asserts the *absence* of a DELETE on destroy, which is the only way an absence gets defended.
+ * **Leaving detaches; it does not delete.** `POST /terminals {kind:"GLANCES"}` is find-or-create, so
+ * the session this page attaches to may be one another operator is already watching. The service
+ * ends it a few seconds after the LAST viewer detaches, which is why this page never sends a DELETE
+ * on the way out. The spec asserts the *absence* of that DELETE, which is the only way an absence
+ * gets defended.
  */
 describe('OverviewPage', () => {
   let http: HttpTestingController;
@@ -144,7 +146,7 @@ describe('OverviewPage', () => {
   });
 
   /** The shared session's whole point: this page is a viewer, not its owner. */
-  it('detaches on the way out and never deletes the shared session', async () => {
+  it('detaches on the way out and leaves the deleting to the service', async () => {
     await open();
     http.expectOne('/system/api/overview').flush(OVERVIEW);
     http.expectOne('/system/api/terminals').flush({ id: 't1', kind: 'GLANCES', container: null });
@@ -156,7 +158,7 @@ describe('OverviewPage', () => {
     http.verify();
   });
 
-  it('ends the session only when somebody presses Stop glances', async () => {
+  it('ends the session at once when somebody presses Stop glances', async () => {
     const page = await open();
     http.expectOne('/system/api/overview').flush(OVERVIEW);
     http.expectOne('/system/api/terminals').flush({ id: 't1', kind: 'GLANCES', container: null });
