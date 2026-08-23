@@ -1,0 +1,60 @@
+<header class="head">
+  <h1>System</h1>
+  <div class="actions">
+    @if (stopped()) {
+      <qits-button (pressed)="start()">Start glances</qits-button>
+    } @else {
+      <qits-button variant="secondary" [busy]="stopping()" (pressed)="stop()"
+        >Stop glances</qits-button
+      >
+    }
+  </div>
+</header>
+
+<app-async
+  [state]="overviewState()"
+  loadingLabel="Reading the host"
+  errorLabel="Could not read the host"
+  (retry)="loadOverview()"
+/>
+
+@if (facts().length > 0) {
+  <dl class="facts">
+    @for (fact of facts(); track fact.label) {
+      <div>
+        <dt>{{ fact.label }}</dt>
+        <dd>{{ fact.value }}</dd>
+      </div>
+    }
+  </dl>
+  @if (usage(); as line) {
+    <p class="usage">{{ line }}</p>
+  }
+}
+
+@if (stopProblem(); as problem) {
+  <p class="page-error" role="alert">Could not stop glances — {{ problem }}.</p>
+}
+
+<app-async
+  [state]="sessionState()"
+  loadingLabel="Starting glances"
+  errorLabel="Could not start glances"
+  (retry)="start()"
+/>
+
+<div class="terminal-fill">
+  <app-terminal-view
+    label="glances"
+    [frames]="frames()"
+    [attached]="attached()"
+    [detachedHint]="detachedHint()"
+    (data)="send($event)"
+    (resized)="resize($event)"
+  />
+</div>
+
+<p class="note">
+  Glances is one shared container: everybody on this page watches the same session, and leaving only
+  detaches from it. Stop glances ends it for everyone.
+</p>

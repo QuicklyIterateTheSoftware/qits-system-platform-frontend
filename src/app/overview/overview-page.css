@@ -1,0 +1,46 @@
+/* What the overview adds to the shared page furniture: the fact strip, and the room the terminal
+   takes. */
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* The host facts, as a strip of small label/value pairs rather than a table: there are six of them,
+   they never grow a row, and a table would give six values the visual weight of a listing. */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  margin: 0 0 0.35rem;
+}
+
+.facts div {
+  min-width: 0;
+}
+
+.facts dt {
+  color: #6b7280;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.usage {
+  margin: 0 0 0.75rem;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+/* Glances draws a full screen and reads badly in a letterbox, so it gets everything below the fact
+   strip. The viewport unit rather than a percentage is deliberate: the layout's main region is not
+   a height-constrained flex parent, so `height: 100%` there resolves to nothing at all. */
+.terminal-fill {
+  height: calc(100vh - 19rem);
+  min-height: 22rem;
+}
