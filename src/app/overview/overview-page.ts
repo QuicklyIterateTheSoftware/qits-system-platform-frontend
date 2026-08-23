@@ -27,8 +27,12 @@ import { TerminalView } from '../terminal/terminal-view';
  * **The glances session is shared, and this page never deletes it on the way out.** `POST /terminals
  * {kind:"GLANCES"}` is find-or-create — a second operator opening this page is handed the first
  * one's session, and 200 instead of 201 is how the service says so. Leaving therefore only detaches
- * the socket; deleting would blank the screen of everybody else watching. `Stop glances` is the one
- * button that ends it, and it is deliberate rather than incidental.
+ * the socket; deleting would blank the screen of everybody else watching.
+ *
+ * **Detaching is still what stops it.** The service ends a glances session a few seconds after its
+ * LAST viewer leaves, so nothing keeps running once the page is closed everywhere — and the few
+ * seconds are what carry the session across a reload. `Stop glances` is the button that ends it at
+ * once, for everyone, and it is deliberate rather than incidental.
  *
  * **The facts above the terminal come from a separate read**, because they are the answers glances
  * does not give: which host this is, which docker, and whether the swarm has one node or five. They
@@ -111,7 +115,8 @@ export class OverviewPage {
   constructor() {
     void loadInto(this.overviewState, () => this.api.overview());
     void this.start();
-    // Detach, never delete: the session is shared, and somebody else may be watching it.
+    // Detach, never delete: the session is shared, and somebody else may be watching it. If nobody
+    // is, the service ends it a few seconds later on its own.
     inject(DestroyRef).onDestroy(() => this.detach());
   }
 
