@@ -37,3 +37,6 @@ qits-platform-system deployed behind it, or the service's own dev mode.
 `.npmrc` routes installs at the platform's own registries and carries no credential; a developer's
 `~/.npmrc` holds the workstation one. CI overrides both through the environment. The comments in
 `.npmrc` and in `.config/qits/ci-post-receive.yml` are where that arrangement is explained.
+
+Releases are cut through the qits-workspaces release door from a branch; `main` moves only by
+that merge. The service repository pins this SPA by its `service/src/main/webui` gitlink.
