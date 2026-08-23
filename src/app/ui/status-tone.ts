@@ -59,8 +59,9 @@ const TONES: Readonly<Record<string, QitsBadgeTone>> = {
  *
  * `neutral` for a status this build has not been taught: docker grows enum values without asking,
  * and a new one must render as a plain grey badge rather than crash a table or silently claim
- * success.
+ * success. A missing word is the same answer, and it is taken seriously here because the alternative
+ * is a whole page thrown away by one field a service has not sent yet.
  */
-export function toneOf(status: string): QitsBadgeTone {
-  return TONES[status.trim().toUpperCase()] ?? 'neutral';
+export function toneOf(status: string | null | undefined): QitsBadgeTone {
+  return status ? (TONES[status.trim().toUpperCase()] ?? 'neutral') : 'neutral';
 }

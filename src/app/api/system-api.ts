@@ -173,9 +173,7 @@ export class SystemApi {
   }
 
   private createTerminal(body: CreateTerminalDto): Promise<TerminalDto> {
-    return firstValueFrom(
-      this.http.post<TerminalDto>(`${this.base}/system/api/terminals`, body),
-    );
+    return firstValueFrom(this.http.post<TerminalDto>(`${this.base}/system/api/terminals`, body));
   }
 
   private swarmUrl(kind: string, id: string): string {

@@ -31,6 +31,12 @@ describe('toneOf', () => {
 
   it('leaves a word it has not been taught grey rather than guessing', () => {
     expect(toneOf('SOMETHING_NEW')).toBe('neutral');
+  });
+
+  /** One field a service has not sent yet must not throw a whole page away. */
+  it('treats a missing word as grey rather than as an error', () => {
     expect(toneOf('')).toBe('neutral');
+    expect(toneOf(null)).toBe('neutral');
+    expect(toneOf(undefined)).toBe('neutral');
   });
 });

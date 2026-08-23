@@ -64,8 +64,7 @@ export const routes: Routes = [
           },
           {
             path: 'networks',
-            loadComponent: () =>
-              import('./swarm/node-networks-tab').then((m) => m.NodeNetworksTab),
+            loadComponent: () => import('./swarm/node-networks-tab').then((m) => m.NodeNetworksTab),
           },
         ],
       },

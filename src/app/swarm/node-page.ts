@@ -8,7 +8,13 @@ import {
   untracked,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet, convertToParamMap } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+  convertToParamMap,
+} from '@angular/router';
 import { SystemApi } from '../api/system-api';
 import type { NodeDetailDto } from '../api/dto';
 import { Async } from '../ui/async';

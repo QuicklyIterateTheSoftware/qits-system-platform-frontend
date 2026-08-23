@@ -83,9 +83,7 @@ export class TerminalPage {
 
   private readonly socketRef = signal<TerminalSocket | null>(null);
 
-  protected readonly frames = computed(
-    () => this.socketRef()?.frames() ?? EMPTY_TERMINAL_FRAMES,
-  );
+  protected readonly frames = computed(() => this.socketRef()?.frames() ?? EMPTY_TERMINAL_FRAMES);
   protected readonly link = computed<TerminalLink>(
     () => this.socketRef()?.status() ?? 'connecting',
   );
