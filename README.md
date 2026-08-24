@@ -4,8 +4,14 @@ The system console: what the machine the platform runs on is doing.
 
 It is an Angular 21 application and it ships no container image. `qits-platform-system` carries this
 repository as a git submodule at `service/src/main/webui` — Quinoa's ui-dir — and builds it into the
-service image, which serves it at `/system/`. Everything on screen is read live from the docker
-daemon that service holds; nothing here is stored.
+service image, which serves it at `/` on its own host, `system.<env>.<domain>`. Everything on screen
+is read live from the docker daemon that service holds; nothing here is stored.
+
+**This is a `system` app.** What it shows is the machine the whole platform runs on, which belongs to
+no project, so it routes no `/<projectSlug>/...` form — `provideQitsScope('system')` in
+`app.config.ts` says so, and picking a project in the chrome's picker leaves for qits-projects
+instead of rewriting an address this app does not serve. The API and the terminal socket keep their
+`/system` segment and are path-routed on every host, so nothing they name changes.
 
 ## Screens
 
@@ -26,7 +32,8 @@ daemon that service holds; nothing here is stored.
 ```
 npm ci
 npm run lint && npm test && npm run build
-npm start          # ng serve; proxy.conf.json sends /system/api and /system/q to localhost:8080
+npm start          # ng serve; proxy.conf.json sends /system/api, /system/q, /projects/api
+                   # and /main-navigation to localhost:8080
 ```
 
 `npm start` needs something answering at `http://localhost:8080` — the platform edge with
