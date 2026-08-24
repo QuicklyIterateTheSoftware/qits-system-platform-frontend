@@ -1,8 +1,8 @@
 {
   "name": "qits-platform-spa-system",
-  "version": "2026.823.173245",
+  "version": "2026.824.170414",
   "private": true,
-  "description": "The system frontend: an Angular application that shows the machine the platform runs on — a live glances terminal, the swarm, and each node's docker resources with a shell into any container. It ships no image — qits-platform-system serves it via Quinoa at /system/.",
+  "description": "The system frontend: an Angular application that shows the machine the platform runs on — a live glances terminal, the swarm, and each node's docker resources with a shell into any container. It ships no image — qits-platform-system serves it via Quinoa at the root of its own host.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
-    "@qits/ui-components": "^2026.807.122825",
+    "@qits/ui-components": "2026.824.155425",
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/xterm": "^6.0.0",
     "rxjs": "~7.8.0",

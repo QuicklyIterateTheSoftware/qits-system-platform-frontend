@@ -3,8 +3,9 @@ import { InjectionToken } from '@angular/core';
 /**
  * The origin every request in this app is built on, and it is empty on purpose.
  *
- * The SPA is served at `/system/` by qits-platform-system itself, behind the same edge
- * that serves `/system/api/…` — so a same-origin absolute path is not a shortcut, it is the
+ * The SPA is served at `/` on `system.<env>.<domain>` by qits-platform-system itself, and the edge
+ * path-routes `/system/api/…` to that same service on that same host — so a same-origin absolute
+ * path is not a shortcut, it is the
  * whole reason the browser's session cookie reaches the service. **This application handles no
  * token.** The edge performs the login, forward-auths the request and asserts the operator's roles
  * to the service; a configured base URL would move these calls cross-origin, the cookie would stay

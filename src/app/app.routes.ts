@@ -11,8 +11,14 @@ import { NotFound } from './not-found/not-found';
  * hop. It is an eager import for that reason: it is not a page, it is the frame the pages arrive
  * in, and a frame that loaded in its own chunk would show a blank application while it did.
  *
- * **The path shape repeats the API's, noun for noun.** `/system/swarm/services/qits-platform-idp`
- * is the page for what `GET /system/api/swarm/services/qits-platform-idp` answers.
+ * **The path shape repeats the API's, noun for noun.** `/swarm/services/qits-platform-idp` is the
+ * page for what `GET /system/api/swarm/services/qits-platform-idp` answers.
+ *
+ * **Every address here starts at the root**, because this application is served at `/` on its own
+ * host. It is a `system` app: what it shows is the machine the whole platform runs on, which belongs
+ * to no project, so it has no `/<slug>/...` form and adds none — picking a project in the chrome
+ * leaves for qits-projects instead. The API and the terminal socket keep their segment and are
+ * path-routed on every host, so nothing below changes address.
  *
  * **A node's four resource lists are child routes, not a tab widget.** `…/containers`, `…/images`,
  * `…/volumes` and `…/networks` are each a URL a reader can paste and the back button can return to;
@@ -26,8 +32,8 @@ import { NotFound } from './not-found/not-found';
  *
  * **Every one of these is a deep link a reader will paste.** They survive a reload only because
  * qits-platform-system sets `quarkus.quinoa.enable-spa-routing=true`, which answers an unknown path
- * under `/system/` with `index.html` instead of a 404; `/system/api` and `/system/q` are held back
- * from that by `quarkus.quinoa.ignored-path-prefixes`.
+ * with `index.html` instead of a 404; `/system` — and with it `/system/api` and `/system/q` — is held
+ * back from that by `quarkus.quinoa.ignored-path-prefixes`.
  */
 export const routes: Routes = [
   {
