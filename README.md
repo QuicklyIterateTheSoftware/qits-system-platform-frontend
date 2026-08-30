@@ -1,10 +1,10 @@
-# qits-platform-spa-system
+# qits-system-platform-frontend
 
 The system console: what the machine the platform runs on is doing.
 
-It is an Angular 21 application and it ships no container image. `qits-platform-system` carries this
-repository as a git submodule at `service/src/main/webui` — Quinoa's ui-dir — and builds it into the
-service image, which serves it at `/` on its own host, `system.<env>.<domain>`. Everything on screen
+It is an Angular 21 application and it ships no container image. `qits-system-platform-service` —
+the repository behind the `qits-platform-system` application — carries this repository as a git
+submodule at `service/src/main/webui` — Quinoa's ui-dir — and builds it into the service image, which serves it at `/` on its own host, `system.<env>.<domain>`. Everything on screen
 is read live from the docker daemon that service holds; nothing here is stored.
 
 **This is a `system` app.** What it shows is the machine the whole platform runs on, which belongs to
