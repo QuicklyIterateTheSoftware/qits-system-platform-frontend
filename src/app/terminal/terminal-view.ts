@@ -58,7 +58,9 @@ export interface TerminalSize {
       flex: 1 1 auto;
       min-height: 12rem;
       overflow: hidden;
-      padding: 0.5rem;
+      /* Horizontal only: the fit addon sizes rows against the host's client height, which includes
+         vertical padding, so any y padding pushes the bottom row past the box. */
+      padding: 0 0.5rem;
       border: 1px solid #1f2937;
       border-radius: 0.375rem;
       background: #111827;
